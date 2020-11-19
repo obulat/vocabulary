@@ -1,22 +1,27 @@
 const fs = require('fs-extra')
 const chalk = require('chalk')
 const path = require('path')
+const buildIcons = require('./build_icons')
 
 const { srcDir, srcIndexPath, verboseName, libraryStencilPath } = require('./variables')
 
-console.log(
-  chalk.blue.inverse(`● Indexing ${verboseName}`)
-)
-indexComponents()
-console.log(
-  chalk.green.inverse('\n✔ Done.')
-)
+async function main () {
+  console.log(chalk.blue.inverse(`● Indexing ${verboseName}`))
+  const componentImports = await indexComponents()
+  console.log(chalk.blue.inverse(`● Building icons`))
+  const iconImports = await buildIcons()
+  return [componentImports, iconImports].join('\n')
+}
+
+main().then((fileContent) => {
+  writeIndex(fileContent)
+  console.log(chalk.green.inverse('\n✔ Done.'))
+})
 
 // Functions
 
-function indexComponents () {
-  const fileContent = formContent()
-  writeIndex(fileContent)
+async function indexComponents () {
+  return formContent()
 }
 
 function isDir (item) {
@@ -54,6 +59,10 @@ function getVueComponentsFromDir (directory, depth) {
   return subdirPaths
 }
 
+/**
+ * Forms the content of the index.js file for importing/exporting and registering components
+ * @returns {string}
+ */
 function formContent () {
   process.stdout.write(chalk.yellow(
     '├─ Forming content for index at',
