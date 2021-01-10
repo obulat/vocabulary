@@ -20,6 +20,7 @@
     "@vue/babel-helper-vue-jsx-merge-props": "^1.0.0",
     "@vue/babel-preset-jsx": "^1.1.2",
     "core-js": "^3.6.5",
+    "focus-trap": "^6.2.3",
     "focus-trap-vue": "^1.1.0",
     "lodash": "^4.17.20",
     "node-sass": "^5.0.0",
