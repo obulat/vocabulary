@@ -1,6 +1,7 @@
 {
   "name": "root",
   "private": true,
+  "version": "2020.11.3",
   "author": "Creative Commons (https://creativecommons.org)",
   "workspaces": {
     "packages": [
